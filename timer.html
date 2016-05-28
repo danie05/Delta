@@ -1,0 +1,114 @@
+<html>
+<head>
+<style>
+
+body
+{
+	text-align: center;
+	background-color: #7BE1FE;    <!--   colors codes from www.color-hex.com    -->
+        font-family: Courier;
+        font-weight: 200;
+}
+
+h1
+{
+
+font-family:Impact;
+color:   #2E1BBC;     
+font-weight: 100; 
+font-size: 40px;
+margin: 70px 0px 20px;
+}
+
+input[type="button"]
+{
+background-color: #9476AF;
+color: #7DC1F0;
+border-radius: 25px;
+padding: 10px;
+font-size:20px;
+}
+
+input[type=text] 
+{
+margin-top:125px;
+padding:5px; 
+border:2px solid #ccc; 
+border-radius: 5px;
+padding: 10px;
+}
+#timer_value 
+{
+font-family: Big Caslon;
+font-size:40px;
+font-weight: 200;
+color: #0000FF;
+font-weight: 150;
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+ <input type="text" id="month" placeholder="Month">
+ <input type="text" id="day" placeholder="Day">
+ <input type="text" id="year" placeholder="Year">
+ <input type="text" id="hour" placeholder="Hour">
+ <input type="text" id="min" placeholder="Min">
+ <input type="button" value="Go!" onclick="settimer();">
+
+ <h1>Time left</h1>
+
+ <p id="timer_value"></p>
+ 
+<script>
+
+var timer;
+function settimer()
+{
+ clearInterval(timer);
+
+ var timer_month=document.getElementById("month").value;
+ var timer_day=document.getElementById("day").value;
+ var timer_year=document.getElementById("year").value;
+ var timer_hour=document.getElementById("hour").value;
+ if(timer_hour=="")timer_hour=0;
+ var timer_min=document.getElementById("min").value;
+ if(timer_min=="")timer_min=0;
+
+ var timer_date=timer_month+"/"+timer_day+"/"+timer_year+" "+timer_hour+":"+timer_min;
+ var end = new Date(timer_date); 
+ var now = new Date(); 
+ var second = 1000; 
+ var minute = second * 60; // Total Sec In One Min
+ var hour = minute * 60; // Total Min In One Hour
+ var day = hour * 24; // Total Hour In One Day
+
+ function showtimer() {
+  var now = new Date();
+  var remain = end - now; 
+  if(remain < 0) 
+  {
+   clearInterval(timer);
+   document.getElementById("timer_value").innerHTML = 'Event has finished!';
+   return;
+  }
+  var days = Math.floor(remain / day); 
+  var hours = Math.floor((remain % day) / hour); 
+  var minutes = Math.floor((remain % hour) / minute); 
+  var seconds = Math.floor((remain % minute) / second); 
+ 
+  document.getElementById("timer_value").innerHTML = days + 'Days   ';
+  document.getElementById("timer_value").innerHTML += hours + 'Hours   ';
+  document.getElementById("timer_value").innerHTML += minutes + 'Minutes   ';
+  document.getElementById("timer_value").innerHTML += seconds + 'Seconds   ';
+ }
+ timer = setInterval(showtimer, 1000); // Display Timer In Every 1 Sec
+}
+</script>
+
+</body>
+</html>
